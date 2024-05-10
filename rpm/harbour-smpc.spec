@@ -1,10 +1,4 @@
-#
-
 Name:       harbour-smpc
-
-# >> macros
-# << macros
-
 Summary:    SailfishOS Port of qmobilempd client
 Version:    1.3.38
 Release:    1
@@ -33,40 +27,21 @@ This is a port the symbian based mpd-client qmobilempd to SailfishOS
 
 
 %prep
-%setup -q -n %{name}-%{version}
-
-# >> setup
-# << setup
+%autosetup
 
 %build
-# >> build pre
-# << build pre
-
 %qmake5
-
-make %{?_smp_mflags}
-
-# >> build post
-# << build post
+%make_build
 
 %install
-rm -rf %{buildroot}
-# >> install pre
-# << install pre
 %qmake5_install
 
-# >> install post
-# << install post
-
-desktop-file-install --delete-original       \
-  --dir %{buildroot}%{_datadir}/applications             \
+desktop-file-install --delete-original \
+  --dir %{buildroot}%{_datadir}/applications \
    %{buildroot}%{_datadir}/applications/*.desktop
 
 %files
-%defattr(644,root,root,755)
-%attr(755,root,root) %{_bindir}/*
+%{_bindir}/%{name}
 %{_datadir}/%{name}
 %{_datadir}/applications/%{name}.desktop
 %{_datadir}/icons/hicolor/*/apps/%{name}.png
-# >> files
-# << files
